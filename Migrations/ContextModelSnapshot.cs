@@ -20,10 +20,15 @@ namespace CEP.Migrations
 
             modelBuilder.Entity("CEP.Models.CepObject", b =>
                 {
-                    b.Property<string>("Cep")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("CepId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Bairro")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cep")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Complemento")
@@ -38,7 +43,7 @@ namespace CEP.Migrations
                     b.Property<string>("UF")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Cep");
+                    b.HasKey("CepId");
 
                     b.ToTable("CEP");
                 });

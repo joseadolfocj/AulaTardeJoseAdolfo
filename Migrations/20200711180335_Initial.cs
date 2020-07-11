@@ -10,7 +10,9 @@ namespace CEP.Migrations
                 name: "CEP",
                 columns: table => new
                 {
-                    Cep = table.Column<string>(nullable: false),
+                    CepId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Cep = table.Column<string>(nullable: true),
                     Logradouro = table.Column<string>(nullable: true),
                     Complemento = table.Column<string>(nullable: true),
                     Bairro = table.Column<string>(nullable: true),
@@ -19,7 +21,7 @@ namespace CEP.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CEP", x => x.Cep);
+                    table.PrimaryKey("PK_CEP", x => x.CepId);
                 });
         }
 

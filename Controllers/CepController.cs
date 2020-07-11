@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using CEP.DAL;
 using CEP.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -11,15 +12,16 @@ namespace CEP.Controllers
 {
     public class CepController : Controller
     {
-        private readonly Context _context;
-        public CepController(Context context)
+
+        private readonly CepDAO _cepDAO;
+        public CepController(CepDAO cepDAO)
         {
-            _context = context;
+            _cepDAO = cepDAO;
         }
         public IActionResult Index()
         {
-            var savedCeps = _context.CepObject.ToList();
-            return View(savedCeps);
+            
+            return View(_cepDAO.Listar());
         }
 
         [HttpPost]
@@ -44,11 +46,12 @@ namespace CEP.Controllers
 
             return RedirectToAction("Index");
         }
-        public async Task<IActionResult> Salvar(CepObject cepObject)
+        public IActionResult Salvar(CepObject cepObject)
         {
-            _context.Add(cepObject);
-            await _context.SaveChangesAsync();
+            _cepDAO.Cadastrar(cepObject);
+
             return RedirectToAction("Index");
         }
+
     }
 }

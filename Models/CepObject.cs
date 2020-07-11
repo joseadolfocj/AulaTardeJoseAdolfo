@@ -11,6 +11,7 @@ namespace CEP.Models
     public class CepObject
     {
         [Key]
+        public int CepId { get; set; }
         public string Cep { get; set; }
         public string Logradouro { get; set; }
         public string Complemento { get; set; }
